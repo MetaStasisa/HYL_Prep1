@@ -1,0 +1,28 @@
+from CarClass import CarClass
+
+
+
+class ParkingStall:
+    
+    def __init__(self, car = None, x, y, r, g, b):
+        self.car = car
+        self.x = x
+        self.y = y
+        self.r = r
+        self.g = g
+        self.b = b
+    
+    def DrawCell(self):
+        fill(self.r, self.g, self.b)
+        rect(self.x, self.y, 82.5, 65)
+        
+    def SetCar(self, car):
+        self.car = car
+        
+    def RemoveCar(self):
+        self.car == None
+        
+    def IsFull(self):
+        if self.car:
+            return True
+        return False
