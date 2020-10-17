@@ -36,7 +36,7 @@ def setup():
             y += 205
         x += 900
         y = 275
-    test = ParkingLot(5,10)
+    # test = ParkingLot(5,10)
 
 # def draw():
     # if  mousePressed:
