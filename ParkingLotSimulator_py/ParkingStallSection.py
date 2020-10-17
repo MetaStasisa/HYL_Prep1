@@ -2,26 +2,50 @@ from ParkingStall import ParkingStall
 import random
 
 class ParkingStallSection:
-    def __init__(self, maximum=8):
+    def __init__(self, x, y, deltax, deltay,maximum=8):
         self.iNumberofcars = 0
         self.iMaximumcars = maximum
-        self.dParkingStalls = self.initialize()
+        self.xorigin = x
+        self.yorigin = y
+        self.width = deltax
+        self.height = deltay
+        self.x = self.xorigin
+        self.y= self.yorigin
         
-    def initialize(self):
+        self.dParkingStalls = self.Initialize()
+        
+    def Initialize(self):
         dTemporaryContainer = dict()
         for i in range(self.iMaximumcars):
-            strTemp = "stall" + str(i)
+            strTemp = self.__ConstructKey(i)
             # Calling Stall Class
-            dTemporaryContainer['strTemp'] = ParkingStall()
+            if i < self.iMaximumcars/2:
+                dTemporaryContainer['strTemp'] = ParkingStall(self.x,self.y, self.width, self.height)
+                self.x = self.x + self.width
+                
+            elif i == self.iMaximumcars/2:
+                self.x = self.xorigin
+                self.y = self.yorigin+self.height
+                dTemporaryContainer['strTemp'] = ParkingStall(self.x, self.y, self.width, self.height)
+                self.x = self.x + self.width
+            else:
+                dTemporaryContainer['strTemp'] = ParkingStall(self.x, self.y, self.width, self.height)
+                self.x = self.x + self.width
         return dTemporaryContainer
     
-    def isEmpty(self):
+    def draw(self):
+        for item in self.dParkingStalls.values():
+            item.DrawCell()
+    
+    
+    
+    def IsEmpty(self):
         if self.iNumberofcars == 0:
             return True
         else:
             return False
         
-    def isFull(self):
+    def IsFull(self):
         if self.iNumberofcars==self.iMaximumcars:
             return True
         else:

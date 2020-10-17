@@ -4,13 +4,42 @@ import random
 
 
 class ParkingLot:    
-    def __init__(self,n_sections,n_stalls):
+    lotWidth = 1800
+    lotHeight = 600
+    streetWidth = 75
+
+    def __init__(self,n_sections,n_stalls,x,y):
         # n_stalls initialized for later
         self.n_stalls = n_stalls
+        self.x = x
+        self.y = y
         if n_sections > 0:
             self.sections_dict = sections_dict={}
             for i in range(n_sections):
                 sections_dict[i] = ParkingStallSection(n_stalls)
+        self.draw()
+
+    def draw(self):
+        stroke(255,255,255)
+        # Drawing the parking lot itself
+        rect(self.x, self.y, self.lotWidth, self.lotHeight)
+
+        # Drawing street through the middle
+        x_middle = (self.lotWidth-self.streetWidth*2)/2
+        rect(x_middle, (self.y-self.streetWidth*2)/2, self.streetWidth, self.lotHeight + 2*self.streetWidth)
+
+        section_length = (self.lotWidth-self.streetWidth*2)/2
+        section_height = (self.lotHeight-100)/len(self.sections_dict)
+        section_x = 50+self.x
+        section_y = 100+self.y
+        y_mult = 1
+        for i in range(len(self.sections_dict)):
+            if i%2==0:
+                self.sections_dict[i].draw(section_x,section_y*y_mult,section_length,section_height)
+            else:
+                self.sections_dict[i].draw(section_x+x_middle,section_y*y_mult,section_length,section_height)
+                y_mult+=1
+            
         
     def getN_Sections(self):
         """Returns the n_sections in the Parking lot
@@ -101,6 +130,8 @@ if __name__=="__main__":
     testLot = ParkingLot(5,10)
     print(testLot.getN_Sections())
     print("Is Empty")
-    print(testLot.IsEmpty)
+    print(testLot.IsEmpty())
+    print("Adding Cars")
     testLot.PushCar(CarClass(10,1))
-    testLot
+    print("Is Empty")
+    print(testLot.IsEmpty)
