@@ -5,9 +5,9 @@ class ParkingStallSection:
     def __init__(self, maximum=8):
         self.iNumberofcars = 0
         self.iMaximumcars = maximum
-        self.dParkingStalls = self.initialize()
+        self.dParkingStalls = self.Initialize()
         
-    def initialize(self):
+    def Initialize(self):
         dTemporaryContainer = dict()
         for i in range(self.iMaximumcars):
             strTemp = "stall" + str(i)
@@ -15,13 +15,13 @@ class ParkingStallSection:
             dTemporaryContainer['strTemp'] = ParkingStall()
         return dTemporaryContainer
     
-    def isEmpty(self):
+    def IsEmpty(self):
         if self.iNumberofcars == 0:
             return True
         else:
             return False
         
-    def isFull(self):
+    def IsFull(self):
         if self.iNumberofcars==self.iMaximumcars:
             return True
         else:
