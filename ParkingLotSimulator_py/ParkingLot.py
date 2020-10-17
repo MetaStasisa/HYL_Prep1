@@ -17,27 +17,30 @@ class ParkingLot:
         if n_sections > 0:
             # calculating how wide and high the sections should be 
             section_length = (self.lotWidth-self.streetWidth*2)/2
-            section_height = (self.lotHeight-100)/n_sections
+            section_height = (self.lotHeight-self.streetHeight)/n_sections
             section_x = 50+self.x
             section_y = 100+self.y
             self.sections_dict ={}   
             y_mult = 1
             for i in range(n_sections):
                 if i%2==0:
-                    self.sections_dict[i] = ParkingStallSection(section_x,section_y + section_height*y_mult,section_length,section_height,n_stalls)
+                    print("sent stats ", section_x,section_y + (section_height+10)*y_mult,section_length/n_stalls,section_height/2,n_stalls)
+                    self.sections_dict[i] = ParkingStallSection(section_x,section_y + (section_height+10)*y_mult,section_length,section_height,n_stalls)
                 else:
-                    self.sections_dict[i] = ParkingStallSection(section_x+self.lotWidth/2,section_y + section_height*y_mult,section_length,section_height,n_stalls)
+                    print("sent stats ", section_x+self.lotWidth/2,section_y + (section_height+10)*y_mult,section_length/n_stalls,section_height/2,n_stalls)
+                    self.sections_dict[i] = ParkingStallSection(section_x+self.lotWidth/2,section_y + (section_height+10)*y_mult,section_length,section_height,n_stalls)
                     y_mult+=1
         self.draw()
 
     def draw(self):
         stroke(255,255,255)
+        fill(50, 50, 50)
         # Drawing the parking lot itself
         rect(self.x, self.y, self.lotWidth, self.lotHeight)
 
         # Drawing street through the middle
         x_middle = (self.lotWidth+self.streetWidth)/2
-        rect(x_middle-self.streetWidth/2, (self.y-self.streetHeight)/2, self.streetWidth, self.lotHeight + 2*self.streetWidth)
+        rect(x_middle-self.streetWidth/2, (self.y+self.streetHeight)/2, self.streetWidth, self.lotHeight + self.streetHeight)
 
         # calculating how wide and high the sections should be 
         section_length = (self.lotWidth-self.streetWidth*2)/2
@@ -48,11 +51,7 @@ class ParkingLot:
         # 
         y_mult = 1
         for i in range(len(self.sections_dict)):
-            if i%2==0:
-                self.sections_dict[i].draw(section_x,section_y + section_height*y_mult,section_length,section_height)
-            else:
-                self.sections_dict[i].draw(section_x+x_middle,section_y + section_height*y_mult,section_length,section_height)
-                y_mult+=1
+            self.sections_dict[i].draw()
             
         
     def getN_Sections(self):

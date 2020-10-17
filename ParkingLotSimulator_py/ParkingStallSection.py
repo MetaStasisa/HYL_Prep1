@@ -13,24 +13,31 @@ class ParkingStallSection:
         self.y= self.yorigin
         
         self.dParkingStalls = self.Initialize()
+        self.draw()
         
     def Initialize(self):
         dTemporaryContainer = dict()
+        temp_stall_x = self.x
+        temp_stall_y = self.y
+        temp_stall_width = self.width/self.iMaximumcars
+        temp_stall_height = self.height/2
         for i in range(self.iMaximumcars):
             strTemp = self.__ConstructKey(i)
             # Calling Stall Class
             if i < self.iMaximumcars/2:
-                dTemporaryContainer['strTemp'] = ParkingStall(self.x,self.y, self.width, self.height)
-                self.x = self.x + self.width
+                print("Data going to stall i<half", temp_stall_x, temp_stall_y, temp_stall_width, temp_stall_height)
+                dTemporaryContainer[strTemp] = ParkingStall(temp_stall_x, temp_stall_y, temp_stall_width, temp_stall_height)
+                temp_stall_x = temp_stall_x + temp_stall_width
                 
             elif i == self.iMaximumcars/2:
-                self.x = self.xorigin
-                self.y = self.yorigin+self.height
-                dTemporaryContainer['strTemp'] = ParkingStall(self.x, self.y, self.width, self.height)
-                self.x = self.x + self.width
+                temp_stall_x = self.xorigin
+                temp_stall_y =  temp_stall_y + temp_stall_height
+                dTemporaryContainer[strTemp] = ParkingStall(temp_stall_x, temp_stall_y, temp_stall_width, temp_stall_height)
+                temp_stall_x = temp_stall_x + temp_stall_width
             else:
-                dTemporaryContainer['strTemp'] = ParkingStall(self.x, self.y, self.width, self.height)
-                self.x = self.x + self.width
+                print("Data going to stall i>half", temp_stall_x, temp_stall_y, temp_stall_width, temp_stall_height)
+                dTemporaryContainer[strTemp] = ParkingStall(temp_stall_x, temp_stall_y, temp_stall_width, temp_stall_height)
+                temp_stall_x = temp_stall_x + temp_stall_width
         return dTemporaryContainer
     
     def draw(self):

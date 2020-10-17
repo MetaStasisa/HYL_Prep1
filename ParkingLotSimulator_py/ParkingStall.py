@@ -16,10 +16,12 @@ class ParkingStall:
         if self.car:
             stroke(255, 255, 255)
             fill(255, 0, 0)
+            print("stall got: " ,self.x, self.y, self.delta_x, self.delta_y)
             rect(self.x, self.y, self.delta_x, self.delta_y)
         else:
             stroke(255, 255, 255)
             fill(0, 255, 0)
+            print("stall got: " ,self.x, self.y, self.delta_x, self.delta_y)
             rect(self.x, self.y, self.delta_x, self.delta_y)
         
     def SetCar(self, car):
