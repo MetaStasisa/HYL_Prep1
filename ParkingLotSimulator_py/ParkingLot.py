@@ -7,6 +7,7 @@ class ParkingLot:
     lotWidth = 1800
     lotHeight = 600
     streetWidth = 75
+    streetHeight = 150
 
     def __init__(self,n_sections,n_stalls,x,y):
         # n_stalls initialized for later
@@ -14,9 +15,19 @@ class ParkingLot:
         self.x = x
         self.y = y
         if n_sections > 0:
-            self.sections_dict = sections_dict={}
+            # calculating how wide and high the sections should be 
+            section_length = (self.lotWidth-self.streetWidth*2)/2
+            section_height = (self.lotHeight-100)/n_sections
+            section_x = 50+self.x
+            section_y = 100+self.y
+            self.sections_dict ={}   
+            y_mult = 1
             for i in range(n_sections):
-                sections_dict[i] = ParkingStallSection(n_stalls)
+                if i%2==0:
+                    self.sections_dict[i] = ParkingStallSection(section_x,section_y + section_height*y_mult,section_length,section_height,n_stalls)
+                else:
+                    self.sections_dict[i] = ParkingStallSection(section_x+self.lotWidth/2,section_y + section_height*y_mult,section_length,section_height,n_stalls)
+                    y_mult+=1
         self.draw()
 
     def draw(self):
@@ -25,19 +36,22 @@ class ParkingLot:
         rect(self.x, self.y, self.lotWidth, self.lotHeight)
 
         # Drawing street through the middle
-        x_middle = (self.lotWidth-self.streetWidth*2)/2
-        rect(x_middle, (self.y-self.streetWidth*2)/2, self.streetWidth, self.lotHeight + 2*self.streetWidth)
+        x_middle = (self.lotWidth+self.streetWidth)/2
+        rect(x_middle-self.streetWidth/2, (self.y-self.streetHeight)/2, self.streetWidth, self.lotHeight + 2*self.streetWidth)
 
+        # calculating how wide and high the sections should be 
         section_length = (self.lotWidth-self.streetWidth*2)/2
         section_height = (self.lotHeight-100)/len(self.sections_dict)
         section_x = 50+self.x
         section_y = 100+self.y
+
+        # 
         y_mult = 1
         for i in range(len(self.sections_dict)):
             if i%2==0:
-                self.sections_dict[i].draw(section_x,section_y*y_mult,section_length,section_height)
+                self.sections_dict[i].draw(section_x,section_y + section_height*y_mult,section_length,section_height)
             else:
-                self.sections_dict[i].draw(section_x+x_middle,section_y*y_mult,section_length,section_height)
+                self.sections_dict[i].draw(section_x+x_middle,section_y + section_height*y_mult,section_length,section_height)
                 y_mult+=1
             
         
@@ -127,7 +141,7 @@ class ParkingLot:
             return False
 
 if __name__=="__main__":
-    testLot = ParkingLot(5,10)
+    testLot = ParkingLot(5,10,50,150)
     print(testLot.getN_Sections())
     print("Is Empty")
     print(testLot.IsEmpty())

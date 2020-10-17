@@ -1,4 +1,4 @@
-from ParkingLot import ParkingLot
+# from ParkingLot import ParkingLot
 
 def drawSection(x, y):
     stallWidth = 82.5
@@ -13,10 +13,10 @@ def drawSection(x, y):
         y += stallHeight
 
 def setup():
-    
     size(1900, 1000)
     background(0,150,0)
     fill(50, 50, 50)
+    # test = ParkingLot(5,10,50,250)
     stroke(255, 255, 255)
     strokeWeight(5)
     lotWidth = 1800
@@ -36,7 +36,7 @@ def setup():
             y += 205
         x += 900
         y = 275
-    # test = ParkingLot(5,10)
+    # 
 
 # def draw():
     # if  mousePressed:
