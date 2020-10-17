@@ -1,3 +1,4 @@
+from ParkingStall import ParkingStall
 import random
 
 class ParkingStallSection:
@@ -37,7 +38,7 @@ class ParkingStallSection:
             break
         return False
             
-    def PushCar(self, Car aCar):
+    def PushCar(self, aCar):
         while True:
             iTemp = random.randint(0, self.iMaximumcars)
             sTemp = self.__ConstructKey(iTemp)
