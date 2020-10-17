@@ -1,12 +1,12 @@
-from ParkingStallSection.py import ParkingStallSection
-from CarClass.py import CarClass
+from ParkingStallSection import ParkingStallSection
+from CarClass import CarClass
 import random
 
 
 class ParkingLot:    
-    def __init__(self,n_sections):
+    def __init__(self,n_sections,n_stalls):
         # n_stalls initialized for later
-        n_stalls = 8
+        self.n_stalls = n_stalls
         if n_sections > 0:
             self.sections_dict = sections_dict={}
             for i in range(n_sections):
@@ -50,7 +50,7 @@ class ParkingLot:
             Boolean: True if Parking lot is full, False otherwise
         """
         for stall_section in self.sections_dict.values():
-            if not stall_section.IsFull():
+            if not stall_section.isFull():
                 return False
         return True
 
@@ -69,7 +69,7 @@ class ParkingLot:
     def PushCar(self,Car):
         if self.getN_Sections()>0:
             if not self.IsFull():
-                list_of_not_full = [tuplepair[0] for tuplepair in self.sections_dict.items() if not tuplepair[1].IsFull()]
+                list_of_not_full = [tuplepair[0] for tuplepair in self.sections_dict.items() if not tuplepair[1].isFull()]
                 rand_sec = random.choice(list_of_not_full)
                 self.sections_dict[rand_sec].PushCar(Car)
                 return True
@@ -88,7 +88,7 @@ class ParkingLot:
     def PopCar(self):
         if self.getN_Sections()>0:
             if not self.IsEmpty():
-                list_of_not_empty = [tuplepair[0] for tuplepair in self.sections_dict.items() if not tuplepair[1].IsEmpty()]
+                list_of_not_empty = [tuplepair[0] for tuplepair in self.sections_dict.items() if not tuplepair[1].isEmpty()]
                 rand_sec = random.choice(list_of_not_empty)
                 self.sections_dict[rand_sec].PopCar()
                 return True
