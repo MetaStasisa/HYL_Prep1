@@ -17,8 +17,8 @@ class Street:
         for i in range (10, 0, -1):
             if i == 10 and self.Cars[10] != None and self.Cars[10] > 1900:
                 self.Cars[10] = None
-            self.Cars[i-1] = self.Cars[i]
-            self.Cars[i] = None
+            self.Cars[i] = self.Cars[i-1]
+            self.Cars[i-1] = None
             
         
     #randomly create cars & randomize their colour
@@ -30,7 +30,7 @@ class Street:
             tempB = random.randint(0, 255)
             tempNumber = random.randint(10000, 99999)
             car = CarClass(0, 150, tempR, tempB, tempG, tempNumber)
-            self.Cars[0] = car
+            self.Cars.insert(0, car)
         
     #when a car reaches middle (index = 6) check if parking and move accordingly
     
@@ -42,7 +42,7 @@ class Street:
         for car in self.Cars:
             if car:
                 car.DrawCar()
-        if self.Cars[0] = none or self.Cars[0].GetX() > 75:
+        if self.Cars[0] == None or self.Cars[0].GetX() > 75:
             self.CreateCars()
         
     def GetCars(self):
