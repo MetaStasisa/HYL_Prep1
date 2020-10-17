@@ -2,18 +2,45 @@ from ParkingStall import ParkingStall
 import random
 
 class ParkingStallSection:
-    def __init__(self, maximum=8):
+    def __init__(self, x, y, deltax, deltay,maximum=8):
         self.iNumberofcars = 0
         self.iMaximumcars = maximum
         self.dParkingStalls = self.Initialize()
+
         
     def Initialize(self):
         dTemporaryContainer = dict()
         for i in range(self.iMaximumcars):
-            strTemp = "stall" + str(i)
+            strTemp = self.__ConstructKey(i)
             # Calling Stall Class
             dTemporaryContainer['strTemp'] = ParkingStall()
         return dTemporaryContainer
+
+    def draw(self, x,y, deltax,deltay):
+        self.xorigin = x
+        self.yorigin = y
+        self.width = x
+        self.length = y
+        self.x = self.xorigin
+        self.y = self.yorigin
+        dTemporaryContainer = dict()
+        for i in range(self.iMaximumcars):
+            strTemp = self.__ConstructKey(i)
+            # Calling Stall Class
+            """ TO CHeck this logic.. i.e. 0:3 is gonna be top, 4-7 is gonna bottom"""
+            if i < self.iMaximumcars / 2:
+                self.dParkingStalls['strTemp'] = ParkingStall(self.x, self.y, self.width, self.length)
+                self.x = self.x + self.width
+        
+            elif i == self.iMaximumcars / 2:
+                self.x = self.xorigin
+                self.y = self.yorigin + self.length
+                self.dParkingStalls['strTemp'] = ParkingStall(self.x, self.y, self.width, self.length)
+                self.x = self.x + self.width
+            else:
+                self.dParkingStalls['strTemp'] = ParkingStall(self.x, self.y, self.width, self.length)
+                self.x = self.x + self.width
+    
     
     def IsEmpty(self):
         if self.iNumberofcars == 0:
