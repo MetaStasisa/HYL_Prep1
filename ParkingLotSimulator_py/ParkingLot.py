@@ -69,7 +69,7 @@ class ParkingLot:
     def PushCar(self,Car):
         if self.getN_Sections()>0:
             if not self.IsFull():
-                list_of_not_full = [tuplepair[0] for tuplepair in self.sections_dict.items() if not tuplepair[1].isFull()]
+                list_of_not_full = [tuplepair[0] for tuplepair in self.sections_dict.items() if not tuplepair[1].IsFull()]
                 rand_sec = random.choice(list_of_not_full)
                 self.sections_dict[rand_sec].PushCar(Car)
                 return True
@@ -88,7 +88,7 @@ class ParkingLot:
     def PopCar(self):
         if self.getN_Sections()>0:
             if not self.IsEmpty():
-                list_of_not_empty = [tuplepair[0] for tuplepair in self.sections_dict.items() if not tuplepair[1].isEmpty()]
+                list_of_not_empty = [tuplepair[0] for tuplepair in self.sections_dict.items() if not tuplepair[1].IsEmpty()]
                 rand_sec = random.choice(list_of_not_empty)
                 self.sections_dict[rand_sec].PopCar()
                 return True
@@ -96,3 +96,11 @@ class ParkingLot:
                 return False
         else:
             return False
+
+if __name__=="__main__":
+    testLot = ParkingLot(5,10)
+    print(testLot.getN_Sections())
+    print("Is Empty")
+    print(testLot.IsEmpty)
+    testLot.PushCar(CarClass(10,1))
+    testLot

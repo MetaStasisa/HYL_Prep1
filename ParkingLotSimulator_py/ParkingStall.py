@@ -4,15 +4,16 @@ from CarClass import CarClass
 
 class ParkingStall:
     
-    def __init__(self, car = None, x, y, colour):
+    def __init__(self, car = None):
         self.car = car
-        self.x = x
-        self.y = y
-        self.colour = colour
+        # self.x = x
+        # self.y = y
+        # self.colour = colour
     
-    def DrawCell(self):
-        fill(self.colour[0]
-        rect(self.x, self.y, 82.5, 65)
+    # def DrawCell(self):
+    #     fill(self.colour[0])
+    #     rect(self.x, self.y, 82.5, 65)
+
     def SetCar(self, car):
         self.car = car
         

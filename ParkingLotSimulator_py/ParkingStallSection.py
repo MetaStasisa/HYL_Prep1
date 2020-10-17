@@ -49,7 +49,7 @@ class ParkingStallSection:
             break
         return True
     
-    def __ConstructKey(self, stall:int):
+    def __ConstructKey(self, stall):
         return "stall" + str(stall)
     
     def __CheckifStallisUsed(self, stall):
