@@ -13,7 +13,7 @@ class CarClass:
     def DrawCar(self):
         noStroke()
         fill(self.RGB[0], self.RGB[1], self.RGB[2])
-        rect(self.car_x, self.car_y, self.75, self.50)
+        rect(self.car_x, self.car_y, 75, 50)
         if self.IsParking == 1:
             fill(255, 255, 255)
             text("PARKING", self.car_x - 10, self.car_y - 10)
