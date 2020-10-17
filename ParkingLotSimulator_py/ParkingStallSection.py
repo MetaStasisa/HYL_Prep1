@@ -5,41 +5,38 @@ class ParkingStallSection:
     def __init__(self, x, y, deltax, deltay,maximum=8):
         self.iNumberofcars = 0
         self.iMaximumcars = maximum
+        self.xorigin = x
+        self.yorigin = y
+        self.width = deltax
+        self.height = deltay
+        self.x = self.xorigin
+        self.y= self.yorigin
+        
         self.dParkingStalls = self.Initialize()
-
         
     def Initialize(self):
         dTemporaryContainer = dict()
         for i in range(self.iMaximumcars):
             strTemp = self.__ConstructKey(i)
             # Calling Stall Class
-            dTemporaryContainer['strTemp'] = ParkingStall()
-        return dTemporaryContainer
-
-    def draw(self, x,y, deltax,deltay):
-        self.xorigin = x
-        self.yorigin = y
-        self.width = x
-        self.length = y
-        self.x = self.xorigin
-        self.y = self.yorigin
-        dTemporaryContainer = dict()
-        for i in range(self.iMaximumcars):
-            strTemp = self.__ConstructKey(i)
-            # Calling Stall Class
-            """ TO CHeck this logic.. i.e. 0:3 is gonna be top, 4-7 is gonna bottom"""
-            if i < self.iMaximumcars / 2:
-                self.dParkingStalls['strTemp'] = ParkingStall(self.x, self.y, self.width, self.length)
+            if i < self.iMaximumcars/2:
+                dTemporaryContainer['strTemp'] = ParkingStall(self.x,self.y, self.width, self.height)
                 self.x = self.x + self.width
-        
-            elif i == self.iMaximumcars / 2:
+                
+            elif i == self.iMaximumcars/2:
                 self.x = self.xorigin
-                self.y = self.yorigin + self.length
-                self.dParkingStalls['strTemp'] = ParkingStall(self.x, self.y, self.width, self.length)
+                self.y = self.yorigin+self.height
+                dTemporaryContainer['strTemp'] = ParkingStall(self.x, self.y, self.width, self.height)
                 self.x = self.x + self.width
             else:
-                self.dParkingStalls['strTemp'] = ParkingStall(self.x, self.y, self.width, self.length)
+                dTemporaryContainer['strTemp'] = ParkingStall(self.x, self.y, self.width, self.height)
                 self.x = self.x + self.width
+        return dTemporaryContainer
+    
+    def draw(self):
+        for item in self.dParkingStalls.values():
+            item.DrawCell()
+    
     
     
     def IsEmpty(self):
